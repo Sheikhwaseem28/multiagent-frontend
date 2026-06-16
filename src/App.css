@@ -1,0 +1,8 @@
+/*
+ * App.css — intentionally empty.
+ * All application styles live in src/index.css using:
+ *  - CSS custom properties for theming
+ *  - Tailwind utility classes
+ *  - Fluid clamp()-based sizing
+ *  - Responsive auto-fit grids
+ */
