@@ -333,6 +333,14 @@ export function HomePage() {
             </motion.button>
           ))}
         </div>
+
+        {/* Render deployment notice */}
+        <div className="mt-6 flex justify-center px-4">
+          <p className="text-[11px] sm:text-xs text-[#71717A] text-center max-w-md flex items-center justify-center gap-2 bg-[#1A1A1A]/80 border border-white/[0.08] rounded-xl px-4 py-2.5">
+            <span className="text-[#06B6D4] text-sm shrink-0 font-bold">ℹ</span> 
+            <span className="leading-relaxed">Note: The backend is deployed on Render. It may take 1-2 minutes to start up if it's been inactive.</span>
+          </p>
+        </div>
       </motion.section>
     </motion.div>
   );

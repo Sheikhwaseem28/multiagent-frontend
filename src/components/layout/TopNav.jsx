@@ -34,7 +34,7 @@ export function TopNav() {
       <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFFFFF]/10 border border-[#FFFFFF]/20 shrink-0 ml-auto">
         <Zap size={11} className="text-[#FFFFFF]" />
         <span className="text-[11px] font-semibold text-[#FFFFFF] whitespace-nowrap">
-          GPT-4o-mini
+          Gemini-2.5-Flash
         </span>
       </div>
     </header>
