@@ -3,10 +3,10 @@ import { cn } from "../../utils";
 
 const variantStyles = {
   default: "bg-[#1A1A1A] text-[#A1A1AA] border border-white/[0.08]",
-  success: "bg-[#22C55E]/15 text-[#22C55E] border border-[#22C55E]/30",
-  warning: "bg-[#F59E0B]/15 text-[#F59E0B] border border-[#F59E0B]/30",
-  error: "bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30",
-  info: "bg-[#6366F1]/15 text-[#6366F1] border border-[#6366F1]/30",
+  success: "bg-[#FFFFFF]/15 text-[#FFFFFF] border border-[#FFFFFF]/30",
+  warning: "bg-[#FFFFFF]/15 text-[#FFFFFF] border border-[#FFFFFF]/30",
+  error: "bg-[#A3A3A3]/15 text-[#A3A3A3] border border-[#A3A3A3]/30",
+  info: "bg-[#FFFFFF]/15 text-[#FFFFFF] border border-[#FFFFFF]/30",
 };
 
 const sizeStyles = {
@@ -38,12 +38,12 @@ export function Badge({
             className={cn(
               "absolute inline-flex h-full w-full rounded-full opacity-75",
               variant === "success"
-                ? "bg-[#22C55E]"
+                ? "bg-[#FFFFFF]"
                 : variant === "warning"
-                  ? "bg-[#F59E0B]"
+                  ? "bg-[#FFFFFF]"
                   : variant === "error"
-                    ? "bg-[#EF4444]"
-                    : "bg-[#6366F1]",
+                    ? "bg-[#A3A3A3]"
+                    : "bg-[#FFFFFF]",
             )}
           />
 
@@ -51,12 +51,12 @@ export function Badge({
             className={cn(
               "relative inline-flex rounded-full h-1.5 w-1.5",
               variant === "success"
-                ? "bg-[#22C55E]"
+                ? "bg-[#FFFFFF]"
                 : variant === "warning"
-                  ? "bg-[#F59E0B]"
+                  ? "bg-[#FFFFFF]"
                   : variant === "error"
-                    ? "bg-[#EF4444]"
-                    : "bg-[#6366F1]",
+                    ? "bg-[#A3A3A3]"
+                    : "bg-[#FFFFFF]",
             )}
           />
         </span>

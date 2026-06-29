@@ -52,7 +52,7 @@ function SourceCard({ source, index }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="flex items-center gap-1.5 text-xs font-semibold text-[#6366F1] hover:text-[#4F46E5] transition-colors mt-auto"
+        className="flex items-center gap-1.5 text-xs font-semibold text-[#FFFFFF] hover:text-[#D4D4D4] transition-colors mt-auto"
         aria-label={`Visit ${source.title}`}
       >
         <ExternalLink size={11} />

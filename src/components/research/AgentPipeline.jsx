@@ -23,15 +23,15 @@ const AGENT_ICONS = {
   critic: Star,
 };
 const AGENT_COLORS = {
-  search: "#6366F1",
-  reader: "#6366F1",
-  writer: "#6366F1",
-  critic: "#22C55E",
+  search: "#FFFFFF",
+  reader: "#FFFFFF",
+  writer: "#FFFFFF",
+  critic: "#FFFFFF",
 };
 const AGENT_GLOW = {
-  search: "shadow-[0_0_15px_rgba(99,102,241,0.3)]",
-  reader: "shadow-[0_0_15px_rgba(99,102,241,0.3)]",
-  writer: "shadow-[0_0_15px_rgba(99,102,241,0.3)]",
+  search: "shadow-[0_0_15px_rgba(255,255,255,0.3)]",
+  reader: "shadow-[0_0_15px_rgba(255,255,255,0.3)]",
+  writer: "shadow-[0_0_15px_rgba(255,255,255,0.3)]",
   critic: "shadow-[0_0_15px_rgba(34,197,94,0.3)]",
 };
 const PROGRESS_VARIANT = {
@@ -49,15 +49,15 @@ function StatusIcon({ status, color }) {
         initial={{ scale: 0, rotate: -90 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 400, damping: 18 }}
-        className="h-5 w-5 rounded-full flex items-center justify-center bg-[#22C55E]/15 border border-[#22C55E]/30"
+        className="h-5 w-5 rounded-full flex items-center justify-center bg-[#FFFFFF]/15 border border-[#FFFFFF]/30"
       >
-        <Check size={11} className="text-[#22C55E]" />
+        <Check size={11} className="text-[#FFFFFF]" />
       </motion.div>
     );
   if (status === "failed")
     return (
-      <div className="h-5 w-5 rounded-full flex items-center justify-center bg-[#EF4444]/15 border border-[#EF4444]/30">
-        <XIcon size={11} className="text-[#EF4444]" />
+      <div className="h-5 w-5 rounded-full flex items-center justify-center bg-[#A3A3A3]/15 border border-[#A3A3A3]/30">
+        <XIcon size={11} className="text-[#A3A3A3]" />
       </div>
     );
   if (status === "running")
@@ -90,8 +90,8 @@ function ConnectorH({ active, done }) {
               className={cn(
                 "absolute inset-0 rounded-full",
                 done
-                  ? "bg-[#22C55E]"
-                  : "bg-gradient-to-r from-transparent via-[#6366F1] to-transparent",
+                  ? "bg-[#FFFFFF]"
+                  : "bg-gradient-to-r from-transparent via-[#FFFFFF] to-transparent",
               )}
             />
           )}
@@ -117,8 +117,8 @@ function ConnectorV({ active, done }) {
             className={cn(
               "absolute inset-0 rounded-full",
               done
-                ? "bg-[#22C55E]"
-                : "bg-gradient-to-b from-transparent via-[#6366F1] to-transparent",
+                ? "bg-[#FFFFFF]"
+                : "bg-gradient-to-b from-transparent via-[#FFFFFF] to-transparent",
             )}
           />
         )}
@@ -136,20 +136,20 @@ function AgentCard({ agent, index, compact = false }) {
   // Custom status color mapping
   const statusColor =
     agent.status === "completed"
-      ? "#22C55E"
+      ? "#FFFFFF"
       : agent.status === "running"
-        ? "#6366F1"
+        ? "#FFFFFF"
         : agent.status === "failed"
-          ? "#EF4444"
+          ? "#A3A3A3"
           : "#71717A";
 
   const borderCls =
     agent.status === "running"
       ? `border-[${statusColor}]/50 shadow-lg ${glow}`
       : agent.status === "completed"
-        ? "border-[#22C55E]/30"
+        ? "border-[#FFFFFF]/30"
         : agent.status === "failed"
-          ? "border-[#EF4444]/30"
+          ? "border-[#A3A3A3]/30"
           : "border-white/[0.08]";
 
   const badgeVariant =
@@ -238,7 +238,7 @@ function AgentCard({ agent, index, compact = false }) {
           {agent.progress}%
         </span>
         {agent.status === "completed" && (
-          <span className="text-[10px] text-[#22C55E] font-mono">
+          <span className="text-[10px] text-[#FFFFFF] font-mono">
             ✓ Complete
           </span>
         )}

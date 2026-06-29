@@ -28,10 +28,10 @@ function EmptyResearch() {
         <motion.div
           animate={{ scale: [1, 1.08, 1] }}
           transition={{ duration: 3, repeat: Infinity }}
-          className="h-20 w-20 sm:h-28 sm:w-28 rounded-3xl bg-[#6366F1]/15 border border-[#6366F1]/20 flex items-center justify-center mx-auto"
+          className="h-20 w-20 sm:h-28 sm:w-28 rounded-3xl bg-[#FFFFFF]/15 border border-[#FFFFFF]/20 flex items-center justify-center mx-auto"
         >
-          <Brain size={36} className="text-[#6366F1] sm:hidden" />
-          <Brain size={48} className="text-[#6366F1] hidden sm:block" />
+          <Brain size={36} className="text-[#FFFFFF] sm:hidden" />
+          <Brain size={48} className="text-[#FFFFFF] hidden sm:block" />
         </motion.div>
         <motion.div
           animate={{ rotate: 360 }}
@@ -52,7 +52,7 @@ function EmptyResearch() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setActiveView("home")}
-        className="flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-semibold text-sm bg-[#6366F1] hover:bg-[#4F46E5] text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] min-h-[44px]"
+        className="flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-semibold text-sm bg-[#FFFFFF] hover:bg-[#D4D4D4] text-white shadow-[0_0_15px_rgba(255,255,255,0.3)] min-h-[44px]"
       >
         <ArrowLeft size={15} />
         Start New Task
@@ -116,9 +116,9 @@ export function ResearchPage() {
                 isRunning
                   ? "bg-[#06B6D4]/15 text-[#06B6D4]"
                   : isCompleted
-                    ? "bg-[#6366F1]/15 text-[#6366F1]"
+                    ? "bg-[#FFFFFF]/15 text-[#FFFFFF]"
                     : isFailed
-                      ? "bg-[#EF4444]/15 text-[#EF4444]"
+                      ? "bg-[#A3A3A3]/15 text-[#A3A3A3]"
                       : "bg-[#1A1A1A] text-[#A1A1AA] border border-white/[0.08]",
               )}
             >
@@ -155,14 +155,14 @@ export function ResearchPage() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-[#EF4444]/10 border border-[#EF4444]/25 mb-4 sm:mb-6"
+          className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-[#A3A3A3]/10 border border-[#A3A3A3]/25 mb-4 sm:mb-6"
         >
-          <AlertTriangle size={15} className="text-[#EF4444] shrink-0" />
+          <AlertTriangle size={15} className="text-[#A3A3A3] shrink-0" />
           <div>
             <div className="text-sm font-semibold text-[#FCA5A5]">
               Task Failed
             </div>
-            <div className="text-xs text-[#EF4444]/70">
+            <div className="text-xs text-[#A3A3A3]/70">
               An error occurred. Please try again.
             </div>
           </div>
@@ -189,14 +189,14 @@ export function ResearchPage() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="flex flex-wrap items-center gap-3 p-3 sm:p-4 rounded-2xl bg-[#6366F1]/10 border border-[#6366F1]/25 mb-4 sm:mb-6"
+            className="flex flex-wrap items-center gap-3 p-3 sm:p-4 rounded-2xl bg-[#FFFFFF]/10 border border-[#FFFFFF]/25 mb-4 sm:mb-6"
           >
-            <Sparkles size={15} className="text-[#6366F1] shrink-0" />
+            <Sparkles size={15} className="text-[#FFFFFF] shrink-0" />
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-[#6366F1]">
+              <div className="text-sm font-semibold text-[#FFFFFF]">
                 Task Complete!
               </div>
-              <div className="text-[11px] sm:text-xs text-[#6366F1]/70">
+              <div className="text-[11px] sm:text-xs text-[#FFFFFF]/70">
                 Report generated · Quality score {session.result?.score}/10 ·
                 All 4 agents done
               </div>
@@ -205,7 +205,7 @@ export function ResearchPage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setActiveTab("report")}
-              className="shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#6366F1] border border-[#6366F1]/30 hover:bg-[#6366F1]/10 transition-all min-h-[36px]"
+              className="shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#FFFFFF] border border-[#FFFFFF]/30 hover:bg-[#FFFFFF]/10 transition-all min-h-[36px]"
             >
               View Report →
             </motion.button>

@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { cn } from "../../utils";
 
 const variantColors = {
-  indigo: "bg-[#6366F1]",
+  indigo: "bg-[#FFFFFF]",
   blue: "bg-[#3B82F6]",
   cyan: "bg-[#06B6D4]",
-  success: "bg-[#22C55E]",
+  success: "bg-[#FFFFFF]",
 };
 
 const sizeClasses = {

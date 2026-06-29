@@ -20,8 +20,8 @@ export function ProgressDashboard({ session }) {
     {
       label: "Overall Progress",
       icon: TrendingUp,
-      color: "#6366F1",
-      bg: "#4F46E5",
+      color: "#FFFFFF",
+      bg: "#D4D4D4",
       content: (
         <div>
           <div className="flex items-end gap-1 mb-2">
@@ -84,7 +84,7 @@ export function ProgressDashboard({ session }) {
           />
         </div>
       ) : session.status === "completed" ? (
-        <div className="text-sm font-semibold text-[#22C55E]">All Done ✓</div>
+        <div className="text-sm font-semibold text-[#FFFFFF]">All Done ✓</div>
       ) : (
         <div className="text-sm text-[#A1A1AA]">Starting...</div>
       ),
@@ -92,7 +92,7 @@ export function ProgressDashboard({ session }) {
     {
       label: "Agents",
       icon: CheckCircle,
-      color: "#22C55E",
+      color: "#FFFFFF",
       bg: "#16A34A",
       content: (
         <div className="space-y-1.5">
@@ -101,11 +101,11 @@ export function ProgressDashboard({ session }) {
               <div
                 className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                   agent.status === "completed"
-                    ? "bg-[#22C55E]"
+                    ? "bg-[#FFFFFF]"
                     : agent.status === "running"
-                      ? "bg-[#6366F1]"
+                      ? "bg-[#FFFFFF]"
                       : agent.status === "failed"
-                        ? "bg-[#EF4444]"
+                        ? "bg-[#A3A3A3]"
                         : "bg-[#242424]"
                 }`}
               />

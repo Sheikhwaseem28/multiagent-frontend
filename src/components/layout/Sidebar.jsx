@@ -109,13 +109,13 @@ export function Sidebar() {
         {/* ── Logo ── */}
         <div className="flex items-center gap-3 px-4 h-16 border-b border-white/[0.06] shrink-0">
           <div className="relative shrink-0">
-            <div className="h-9 w-9 rounded-xl bg-[#6366F1] flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Brain size={18} className="text-white" />
+            <div className="h-9 w-9 rounded-xl overflow-hidden flex items-center justify-center shadow-lg shadow-neutral-200/20">
+              <img src="/logo.png" alt="DeepScout Logo" className="w-full h-full object-cover" />
             </div>
             <motion.div
               animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2.5, repeat: Infinity }}
-              className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#22C55E]"
+              className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#FFFFFF]"
             />
           </div>
 
@@ -129,9 +129,9 @@ export function Sidebar() {
                 className="overflow-hidden"
               >
                 <div className="font-bold text-[#F5F5F5] text-base leading-tight tracking-tight whitespace-nowrap">
-                  AgentCore
+                  DeepScout
                 </div>
-                <div className="text-[10px] font-semibold text-[#6366F1] tracking-widest uppercase">
+                <div className="text-[10px] font-semibold text-[#FFFFFF] tracking-widest uppercase">
                   AI Agents
                 </div>
               </motion.div>
@@ -217,19 +217,19 @@ export function Sidebar() {
                       loadFromHistory(item.id);
                       if (!isDesktop) setSidebarOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 rounded-xl text-xs text-[#71717A] hover:text-[#A1A1AA] hover:bg-[#6366F1]/10 border border-transparent hover:border-[#6366F1]/20 transition-all duration-200 group min-h-[40px]"
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs text-[#71717A] hover:text-[#A1A1AA] hover:bg-[#FFFFFF]/10 border border-transparent hover:border-[#FFFFFF]/20 transition-all duration-200 group min-h-[40px]"
                     aria-label={`Open: ${item.topic}`}
                   >
                     <div className="flex items-center gap-2">
                       <BookOpen
                         size={11}
-                        className="shrink-0 text-[#71717A] group-hover:text-[#6366F1]"
+                        className="shrink-0 text-[#71717A] group-hover:text-[#FFFFFF]"
                       />
                       <span className="truncate flex-1 group-hover:text-[#F5F5F5]">
                         {item.topic}
                       </span>
-                      <span className="ml-auto shrink-0 text-[#F59E0B] font-semibold text-[10px] flex items-center gap-0.5">
-                        <Star size={9} className="fill-[#F59E0B]" />
+                      <span className="ml-auto shrink-0 text-[#FFFFFF] font-semibold text-[10px] flex items-center gap-0.5">
+                        <Star size={9} className="fill-[#FFFFFF]" />
                         {item.score}/10
                       </span>
                     </div>
@@ -249,7 +249,7 @@ export function Sidebar() {
                             Math.min(c + BATCH, history.length),
                           )
                         }
-                        className="w-full text-center text-[10px] font-semibold text-[#6366F1] hover:text-[#818CF8] py-1.5 rounded-lg hover:bg-[#6366F1]/10 transition-all"
+                        className="w-full text-center text-[10px] font-semibold text-[#FFFFFF] hover:text-[#A3A3A3] py-1.5 rounded-lg hover:bg-[#FFFFFF]/10 transition-all"
                       >
                         Load {Math.min(BATCH, history.length - visibleCount)}{" "}
                         more &nbsp;({history.length - visibleCount} remaining)

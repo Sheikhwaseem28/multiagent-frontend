@@ -30,19 +30,19 @@ export function extractDomain(url) {
 }
 
 export function getTrustColor(score) {
-  if (score >= 80) return "#10B981";
-  if (score >= 60) return "#F59E0B";
-  return "#EF4444";
+  if (score >= 80) return "#FFFFFF";
+  if (score >= 60) return "#FFFFFF";
+  return "#A3A3A3";
 }
 
 export function getStatusColor(status) {
   switch (status) {
     case "running":
-      return "#4F46E5";
+      return "#D4D4D4";
     case "completed":
-      return "#10B981";
+      return "#FFFFFF";
     case "failed":
-      return "#EF4444";
+      return "#A3A3A3";
     default:
       return "#94A3B8";
   }

@@ -118,6 +118,11 @@ export const useAppStore = create()(
 
       clearSession: () => set({ session: null }),
 
+      deleteResearch: (id) => {
+        const { history } = get();
+        set({ history: history.filter(h => h.id !== id) });
+      },
+
       cancelResearch: () => {
         const { session } = get();
         if (!session) return;
@@ -330,7 +335,7 @@ export const useAppStore = create()(
       },
     }),
     {
-      name: "researchmind-store",
+      name: "deepscout-store",
       partialize: (state) => ({
         history: state.history,
         analytics: state.analytics,

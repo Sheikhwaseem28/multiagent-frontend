@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
@@ -48,10 +48,10 @@ const DEPTH_OPTIONS = [
 ];
 
 const AGENT_STEPS = [
-  { icon: Search, label: "Search Agent", color: "#6366F1" },
-  { icon: BookOpen, label: "Reading Agent", color: "#6366F1" },
-  { icon: PenLine, label: "Writing Agent", color: "#6366F1" },
-  { icon: Star, label: "Review Agent", color: "#F59E0B" },
+  { icon: Search, label: "Search Agent", color: "#FFFFFF" },
+  { icon: BookOpen, label: "Reading Agent", color: "#FFFFFF" },
+  { icon: PenLine, label: "Writing Agent", color: "#FFFFFF" },
+  { icon: Star, label: "Review Agent", color: "#FFFFFF" },
 ];
 
 const containerVariants = {
@@ -68,11 +68,26 @@ const itemVariants = {
 };
 
 export function HomePage() {
-  const { startResearch, analytics } = useAppStore();
+  const { startResearch } = useAppStore();
   const [topic, setTopic] = useState("");
   const [depth, setDepth] = useState("standard");
   const [focused, setFocused] = useState(false);
   const [depthOpen, setDepthOpen] = useState(false);
+  const depthDropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (depthDropdownRef.current && !depthDropdownRef.current.contains(event.target)) {
+        setDepthOpen(false);
+      }
+    }
+    if (depthOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [depthOpen]);
 
   const handleStart = useCallback(async () => {
     if (!topic.trim()) return;
@@ -93,44 +108,38 @@ export function HomePage() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-full w-full"
+      className="w-full flex flex-col min-h-[calc(100dvh-7rem)] sm:min-h-[calc(100vh-10rem)]"
     >
       {/* ── Hero Section ───────────────────────────────────────────── */}
       <motion.section
         variants={itemVariants}
-        className="relative text-center overflow-hidden pt-10 sm:pt-14 lg:pt-2 pb-8 sm:pb-12"
+        className="relative text-center overflow-hidden flex-1 flex flex-col justify-center py-4 sm:py-8"
       >
-        {/* Dot-grid background */}
-        <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none" />
-
         {/* Glow blob */}
         <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.15, 0.3, 0.15] }}
+          animate={{ scale: [1, 1.06, 1], opacity: [0.1, 0.2, 0.1] }}
           transition={{ duration: 6, repeat: Infinity }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(600px,90vw)] h-[min(400px,60vw)] rounded-full bg-[#6366F1]/20 blur-3xl pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(600px,90vw)] h-[min(400px,60vw)] rounded-full bg-[#FFFFFF]/20 blur-3xl pointer-events-none"
         />
 
-        {/* Headline — fluid clamp typography */}
+        {/* Enhanced Headline */}
         <h1
-          className="relative font-bold text-[#F5F5F5] leading-[1.05] tracking-tight mb-4 sm:mb-5 text-balance px-4"
-          style={{ fontSize: "var(--text-hero)" }}
+          className="relative font-bold text-[#F5F5F5] leading-[1.05] tracking-tight mb-2 sm:mb-3 text-balance px-4"
+          style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)" }}
         >
-          AgentCore
-          <br />
-          <span className="text-[#6366F1]">AI Workflows</span>
+          DeepScout
         </h1>
 
         {/* Sub */}
         <p
-          className="relative text-[#A1A1AA] max-w-full mx-auto leading-relaxed mb-8 sm:mb-12 px-6"
-          style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.125rem)" }}
+          className="relative text-[#A1A1AA] font-medium max-w-full mx-auto leading-relaxed mb-8 sm:mb-12 px-6"
+          style={{ fontSize: "clamp(1.1rem, 2vw, 1.75rem)" }}
         >
-          Let our specialized AI agents work together to handle your complex
-          tasks and research.
+          What would you like to research today?
         </p>
 
         {/* Agent flow pills — scroll horizontally on mobile */}
-        <div className="relative flex items-center justify-start sm:justify-center gap-2 mb-8 sm:mb-12 px-4 overflow-x-auto scrollbar-hide pb-1">
+        <div className="relative flex items-center justify-start sm:justify-center gap-2 mb-4 px-4 overflow-x-auto scrollbar-hide pb-1">
           {AGENT_STEPS.map((step, i) => (
             <div key={step.label} className="flex items-center gap-2 shrink-0">
               <motion.div
@@ -151,21 +160,21 @@ export function HomePage() {
       </motion.section>
 
       {/* ── Research Input Card ────────────────────────────────────────── */}
-      <motion.section variants={itemVariants} className="w-full pb-8 sm:pb-12">
+      <motion.section variants={itemVariants} className="w-full mt-auto pb-4 px-4 sm:px-6">
         {/* Border wrapper */}
         <div
           className={cn(
             "rounded-2xl p-[1px] transition-all duration-300",
             focused
-              ? "bg-[#6366F1]/50 shadow-[0_0_20px_rgba(99,102,241,0.25)]"
-              : "bg-white/[0.08] hover:bg-white/[0.12]",
+              ? "bg-[#FFFFFF]/50 shadow-[0_0_20px_rgba(255,255,255,0.25)]"
+              : "bg-white/[0.08] hover:bg-white/[0.12]"
           )}
         >
-          <div className="rounded-[15px] bg-[#1A1A1A] overflow-hidden">
+          <div className="rounded-[15px] bg-[#1A1A1A]">
             {/* Textarea row */}
             <div className="relative flex items-start gap-3 p-3 sm:p-4">
-              <div className="mt-1 h-8 w-8 rounded-lg bg-[#6366F1] flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/20">
-                <Search size={14} className="text-white" />
+              <div className="mt-1 h-8 w-8 rounded-lg bg-[#FFFFFF] flex items-center justify-center shrink-0 shadow-md shadow-neutral-200/20">
+                <Search size={14} className="text-[#0F0F0F]" />
               </div>
               <textarea
                 value={topic}
@@ -173,12 +182,12 @@ export function HomePage() {
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 onKeyDown={handleKeyDown}
-                placeholder="What task should the AI agents work on today?"
+                placeholder="Message DeepScout..."
                 rows={2}
                 className={cn(
                   "flex-1 bg-transparent text-[#F5F5F5] placeholder:text-[#71717A]",
                   "leading-relaxed resize-none outline-none font-medium py-1",
-                  "text-sm sm:text-base",
+                  "text-sm sm:text-base"
                 )}
                 aria-label="Research topic input"
               />
@@ -187,7 +196,7 @@ export function HomePage() {
             {/* Controls row */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 px-3 sm:px-4 pb-3 sm:pb-4 border-t border-white/[0.06] pt-2.5 sm:pt-3">
               {/* Depth selector */}
-              <div className="relative">
+              <div className="relative" ref={depthDropdownRef}>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -195,7 +204,7 @@ export function HomePage() {
                   className={cn(
                     "flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium",
                     "bg-[#242424] border border-white/[0.08] text-[#F5F5F5]",
-                    "hover:border-[#6366F1]/50 transition-all min-h-[36px]",
+                    "hover:border-[#FFFFFF]/50 transition-all min-h-[36px]"
                   )}
                   aria-haspopup="listbox"
                   aria-expanded={depthOpen}
@@ -211,7 +220,7 @@ export function HomePage() {
                     size={13}
                     className={cn(
                       "text-[#71717A] transition-transform",
-                      depthOpen && "rotate-180",
+                      depthOpen && "rotate-180"
                     )}
                   />
                 </motion.button>
@@ -239,14 +248,14 @@ export function HomePage() {
                           className={cn(
                             "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all min-h-[44px]",
                             depth === opt.value
-                              ? "bg-[#6366F1]/20 text-[#6366F1]"
-                              : "text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#F5F5F5]",
+                              ? "bg-[#FFFFFF]/20 text-[#FFFFFF]"
+                              : "text-[#A1A1AA] hover:bg-white/[0.05] hover:text-[#F5F5F5]"
                           )}
                         >
                           <span
                             className={
                               depth === opt.value
-                                ? "text-[#6366F1]"
+                                ? "text-[#FFFFFF]"
                                 : "text-[#71717A]"
                             }
                           >
@@ -261,7 +270,7 @@ export function HomePage() {
                             </div>
                           </div>
                           {depth === opt.value && (
-                            <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#6366F1]" />
+                            <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#FFFFFF]" />
                           )}
                         </button>
                       ))}
@@ -276,7 +285,7 @@ export function HomePage() {
                 <span>Est. {selectedDepth.time}</span>
               </div>
 
-              <div className="flex-1" />
+              <div className="flex-1 hidden sm:block" />
 
               {/* Start Research CTA */}
               <motion.button
@@ -285,11 +294,11 @@ export function HomePage() {
                 onClick={handleStart}
                 disabled={!topic.trim()}
                 className={cn(
-                  "flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 rounded-xl font-semibold text-xs sm:text-sm",
-                  "transition-all duration-200 min-h-[36px]",
+                  "flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 rounded-xl font-semibold text-xs sm:text-sm",
+                  "transition-all duration-200 min-h-[44px] sm:min-h-[36px] w-full sm:w-auto mt-2 sm:mt-0",
                   topic.trim()
-                    ? "bg-[#6366F1] text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:bg-[#4F46E5] hover:shadow-[0_0_20px_rgba(99,102,241,0.5)]"
-                    : "bg-[#242424] text-[#71717A] cursor-not-allowed border border-white/[0.08]",
+                    ? "bg-[#FFFFFF] text-[#0F0F0F] shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:bg-[#D4D4D4] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+                    : "bg-[#242424] text-[#71717A] cursor-not-allowed border border-white/[0.08]"
                 )}
                 aria-label="Start Task"
                 aria-disabled={!topic.trim()}
@@ -303,11 +312,11 @@ export function HomePage() {
         </div>
 
         {/* Example chips */}
-        <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 justify-center px-1">
+        <div className="mt-3 flex flex-wrap gap-2 justify-center px-1">
           <span className="text-xs text-[#71717A] self-center font-medium mr-0.5">
             Try →
           </span>
-          {EXAMPLES.map((ex) => (
+          {EXAMPLES.slice(0, 3).map((ex) => (
             <motion.button
               key={ex}
               whileHover={{ scale: 1.04, y: -1 }}
@@ -316,8 +325,8 @@ export function HomePage() {
               className={cn(
                 "px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-medium",
                 "bg-[#1A1A1A] border border-white/[0.08] text-[#A1A1AA]",
-                "hover:border-[#6366F1]/40 hover:text-[#F5F5F5] hover:bg-[#242424]",
-                "transition-all duration-200",
+                "hover:border-[#FFFFFF]/40 hover:text-[#F5F5F5] hover:bg-[#242424]",
+                "transition-all duration-200"
               )}
             >
               {ex}
@@ -325,38 +334,6 @@ export function HomePage() {
           ))}
         </div>
       </motion.section>
-
-      {/* ── Stats Row (shown after first research) ─────────────────── */}
-      {analytics.totalResearches > 0 && (
-        <motion.section
-          variants={itemVariants}
-          className="w-full pb-12 sm:pb-16"
-        >
-          {/* 1-col mobile → 3-col sm+ */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            {[
-              { label: "Tasks Completed", value: analytics.totalResearches },
-              { label: "Sources Analyzed", value: analytics.sourcesAnalyzed },
-              {
-                label: "Avg Quality Score",
-                value: `${analytics.avgQualityScore}/10`,
-              },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl bg-[#1A1A1A] border border-white/[0.08] px-4 py-4 text-center hover:border-white/[0.15] hover:bg-[#242424] transition-all"
-              >
-                <div className="text-xl sm:text-2xl font-bold text-[#F5F5F5] mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-[11px] sm:text-xs text-[#A1A1AA] font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-      )}
     </motion.div>
   );
 }

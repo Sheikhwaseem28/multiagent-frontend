@@ -31,7 +31,7 @@ export function ReportViewer({ result, topic }) {
   const [activeSection, setActiveSection] = useState("");
   const toc = extractTOC(result.report);
 
-  const scoreColor = "#F59E0B";
+  const scoreColor = "#FFFFFF";
 
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(result.report);
@@ -87,7 +87,7 @@ export function ReportViewer({ result, topic }) {
                   onClick={() => setActiveSection(item.id)}
                   className={`block py-1 leading-snug transition-colors hover:text-[#F5F5F5] ${
                     activeSection === item.id
-                      ? "text-[#6366F1]"
+                      ? "text-[#FFFFFF]"
                       : "text-[#71717A]"
                   } ${
                     item.level === 2 ? "pl-2.5" : item.level === 3 ? "pl-4" : ""
@@ -142,7 +142,7 @@ export function ReportViewer({ result, topic }) {
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
                   >
-                    <Check size={12} className="text-[#6366F1]" />
+                    <Check size={12} className="text-[#FFFFFF]" />
                   </motion.span>
                 ) : (
                   <motion.span
@@ -164,7 +164,7 @@ export function ReportViewer({ result, topic }) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#6366F1]/15 border border-[#6366F1]/30 text-[#6366F1] hover:bg-[#6366F1]/25 transition-all min-h-[34px]"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FFFFFF]/15 border border-[#FFFFFF]/30 text-[#FFFFFF] hover:bg-[#FFFFFF]/25 transition-all min-h-[34px]"
               aria-label="Download report as text file"
             >
               <Download size={12} />
@@ -265,11 +265,11 @@ export function ReportViewer({ result, topic }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.12 }}
-          className="rounded-2xl bg-[#1A1A1A] border border-[#F59E0B]/20 p-4 sm:p-6 overflow-hidden"
+          className="rounded-2xl bg-[#1A1A1A] border border-[#FFFFFF]/20 p-4 sm:p-6 overflow-hidden"
         >
           <div className="flex items-center gap-2 mb-3 sm:mb-4">
-            <div className="h-7 w-7 rounded-lg bg-[#F59E0B]/15 flex items-center justify-center shrink-0">
-              <Star size={13} className="text-[#F59E0B] fill-[#F59E0B]" />
+            <div className="h-7 w-7 rounded-lg bg-[#FFFFFF]/15 flex items-center justify-center shrink-0">
+              <Star size={13} className="text-[#FFFFFF] fill-[#FFFFFF]" />
             </div>
             <span className="text-sm font-semibold text-[#F5F5F5]">
               Critic Feedback
