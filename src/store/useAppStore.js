@@ -319,7 +319,7 @@ export const useAppStore = create()(
           clearInterval(timerInterval);
           const s = get().session;
           if (!s) return;
-          set({ session: { ...s, status: "failed" } });
+          set({ session: { ...s, status: "failed", error: error.message } });
           console.error("Research pipeline error:", error);
         };
 

@@ -73,7 +73,16 @@ export function HomePage() {
   const [depth, setDepth] = useState("standard");
   const [focused, setFocused] = useState(false);
   const [depthOpen, setDepthOpen] = useState(false);
+  const [usage, setUsage] = useState(null);
   const depthDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const API_BASE = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+    fetch(`${API_BASE}/usage`)
+      .then((res) => res.json())
+      .then((data) => setUsage(data))
+      .catch((err) => console.error("Error fetching usage status:", err));
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -90,9 +99,9 @@ export function HomePage() {
   }, [depthOpen]);
 
   const handleStart = useCallback(async () => {
-    if (!topic.trim()) return;
+    if (!topic.trim() || (usage && usage.reached)) return;
     await startResearch(topic.trim(), depth);
-  }, [topic, depth, startResearch]);
+  }, [topic, depth, startResearch, usage]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -182,12 +191,14 @@ export function HomePage() {
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 onKeyDown={handleKeyDown}
-                placeholder="Message DeepScout..."
+                placeholder={usage && usage.reached ? "API and search limit of 50 reached. Search disabled." : "Message DeepScout..."}
+                disabled={usage && usage.reached}
                 rows={2}
                 className={cn(
                   "flex-1 bg-transparent text-[#F5F5F5] placeholder:text-[#71717A]",
                   "leading-relaxed resize-none outline-none font-medium py-1",
-                  "text-sm sm:text-base"
+                  "text-sm sm:text-base",
+                  usage && usage.reached && "cursor-not-allowed opacity-50"
                 )}
                 aria-label="Research topic input"
               />
@@ -198,13 +209,15 @@ export function HomePage() {
               {/* Depth selector */}
               <div className="relative" ref={depthDropdownRef}>
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={usage && usage.reached ? {} : { scale: 1.02 }}
+                  whileTap={usage && usage.reached ? {} : { scale: 0.98 }}
+                  disabled={usage && usage.reached}
                   onClick={() => setDepthOpen(!depthOpen)}
                   className={cn(
                     "flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium",
                     "bg-[#242424] border border-white/[0.08] text-[#F5F5F5]",
-                    "hover:border-[#FFFFFF]/50 transition-all min-h-[36px]"
+                    "hover:border-[#FFFFFF]/50 transition-all min-h-[36px]",
+                    usage && usage.reached && "cursor-not-allowed opacity-50"
                   )}
                   aria-haspopup="listbox"
                   aria-expanded={depthOpen}
@@ -289,19 +302,19 @@ export function HomePage() {
 
               {/* Start Research CTA */}
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={!topic.trim() || (usage && usage.reached) ? {} : { scale: 1.03 }}
+                whileTap={!topic.trim() || (usage && usage.reached) ? {} : { scale: 0.97 }}
                 onClick={handleStart}
-                disabled={!topic.trim()}
+                disabled={!topic.trim() || (usage && usage.reached)}
                 className={cn(
                   "flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 rounded-xl font-semibold text-xs sm:text-sm",
                   "transition-all duration-200 min-h-[44px] sm:min-h-[36px] w-full sm:w-auto mt-2 sm:mt-0",
-                  topic.trim()
+                  topic.trim() && !(usage && usage.reached)
                     ? "bg-[#FFFFFF] text-[#0F0F0F] shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:bg-[#D4D4D4] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
                     : "bg-[#242424] text-[#71717A] cursor-not-allowed border border-white/[0.08]"
                 )}
                 aria-label="Start Task"
-                aria-disabled={!topic.trim()}
+                aria-disabled={!topic.trim() || (usage && usage.reached)}
               >
                 <Sparkles size={13} />
                 <span className="whitespace-nowrap">Start Task</span>
@@ -333,6 +346,28 @@ export function HomePage() {
             </motion.button>
           ))}
         </div>
+
+        {/* Usage / Limit Notification */}
+        {usage && (
+          <div className="mt-4 flex justify-center px-4">
+            <div className={cn(
+              "text-[11px] sm:text-xs text-center max-w-md flex flex-col gap-1 border rounded-xl px-4 py-3 w-full",
+              usage.reached
+                ? "bg-red-500/10 border-red-500/30 text-red-400"
+                : "bg-white/[0.03] border-white/[0.08] text-[#A1A1AA]"
+            )}>
+              <div className="font-semibold flex items-center justify-center gap-1.5">
+                <span>{usage.reached ? "🛑 Search & API Call Limit Reached" : "📊 API Usage Status"}</span>
+                <span className="text-xs">({usage.searches}/50 searches, {usage.api_calls}/50 API calls)</span>
+              </div>
+              <p className="text-[10px] opacity-80 leading-relaxed">
+                {usage.reached
+                  ? "To prevent API abuse, further searches are disabled. Please contact administrator to reset."
+                  : "Each research task utilizes multiple agents & API requests. Limit is set to 50 calls to avoid spamming."}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Render deployment notice */}
         <div className="mt-6 flex justify-center px-4">

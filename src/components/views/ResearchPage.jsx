@@ -163,7 +163,7 @@ export function ResearchPage() {
               Task Failed
             </div>
             <div className="text-xs text-[#A3A3A3]/70">
-              An error occurred. Please try again.
+              {session.error || "An error occurred. Please try again."}
             </div>
           </div>
         </motion.div>
